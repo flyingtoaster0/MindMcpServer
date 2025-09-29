@@ -1,0 +1,39 @@
+
+#server.error.include-stacktrace: never
+#spring.mvc.dispatch-options-request: true
+#
+#server:
+#  port: 8080
+
+debug: false
+logging:
+  pattern:
+    console:
+
+spring:
+  application:
+    name: MindMcpServer
+  ai:
+    mcp:
+      server:
+        name: MindMcpServer
+        version: 0.0.1
+        stdio: true
+  main:
+    web-application-type: none
+    banner-mode: off
+    bannerMode: off
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+mind:
+  username: ${MIND_USERNAME}
+  password: ${MIND_PASSWORD}
+  base_url: ${MIND_BASE_URL}
+  timezone: ${MIND_TIMEZONE}
+
+
+

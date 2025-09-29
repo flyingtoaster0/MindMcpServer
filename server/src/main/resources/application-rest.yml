@@ -1,0 +1,19 @@
+spring.application.name: MindMcpServer
+#
+#server.error.include-stacktrace: never
+#spring.mvc.dispatch-options-request: true
+#
+#server:
+#  port: 8080
+
+spring:
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+mind:
+  username: ${MIND_USERNAME}
+  password: ${MIND_PASSWORD}
+  base_url: ${MIND_BASE_URL}
