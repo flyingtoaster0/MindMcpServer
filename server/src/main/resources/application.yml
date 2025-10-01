@@ -33,7 +33,6 @@ mind:
   username: ${MIND_USERNAME}
   password: ${MIND_PASSWORD}
   base_url: ${MIND_BASE_URL}
-  timezone: ${MIND_TIMEZONE}
 
 
 

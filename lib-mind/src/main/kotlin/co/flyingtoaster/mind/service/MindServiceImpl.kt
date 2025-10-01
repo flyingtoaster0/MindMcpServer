@@ -2,24 +2,18 @@ package co.flyingtoaster.mind.service
 
 import co.flyingtoaster.mind.exception.MindException
 import co.flyingtoaster.mind.service.model.CreateReminderRequest
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.io.IOException
 import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.ZoneOffset
 
 @Service
 class MindServiceImpl(
-    private val mindApiService: MindApiService,
-    @Value("\${mind.timezone}") private val timezoneId: String
+    private val mindApiService: MindApiService
 ) : MindService {
 
     override fun createReminder(title: String, message: String?, localDateTime: LocalDateTime) {
-        val zoneId = ZoneId.of(timezoneId)
-        val zonedDateTime = localDateTime.atZone(zoneId)
-        val offsetSeconds = zonedDateTime.offset.totalSeconds.toLong()
-        val epochSeconds = zonedDateTime.toInstant().epochSecond - offsetSeconds
+        val epochSeconds = localDateTime.toEpochSecond(ZoneOffset.UTC)
         val request = CreateReminderRequest(
             title = title,
             time = epochSeconds,
