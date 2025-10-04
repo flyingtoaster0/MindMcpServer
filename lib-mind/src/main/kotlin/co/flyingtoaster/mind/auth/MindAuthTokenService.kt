@@ -10,8 +10,8 @@ internal class MindAuthTokenService(
     private val objectMapper: ObjectMapper
 ) : AuthStore<MindAuthTokenModel> {
 
-    override fun setAuthResponse(token: MindAuthTokenModel) {
-        val tokenJson = objectMapper.writeValueAsString(token)
+    override fun setAuthResponse(authResponse: MindAuthTokenModel) {
+        val tokenJson = objectMapper.writeValueAsString(authResponse)
         stringRedisTemplate.opsForValue().set(MIND_API_TOKEN_KEY, tokenJson)
     }
 
