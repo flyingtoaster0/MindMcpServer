@@ -41,6 +41,6 @@ services:
     #- 8086:8080
   #restart: always
 
-  volumes: 
+volumes: 
   redis_data:
   #mind-db:

@@ -1,19 +1,23 @@
 package co.flyingtoaster.mind.mcp.tools
 
 import co.flyingtoaster.foundry.util.DateTimeProvider
+import co.flyingtoaster.mind.exception.MindException
 import co.flyingtoaster.mind.service.MindService
 import org.springframework.ai.tool.annotation.Tool
 import org.springframework.ai.tool.annotation.ToolParam
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @Service
 class ReminderToolService(
     private val mindService: MindService,
-    private val dateTimeProvider: DateTimeProvider
+    private val dateTimeProvider: DateTimeProvider,
+    @Value("\${mind.timezone}") private val timezoneId: String
 ) {
 
     @Tool(description = "Create a reminder at a specific date and time. Can be called with just a time if the user provides only a time - the missing title will be requested in a follow-up. Can also be called with just the title if the user provides only a description - the missing date/time will be requested in a follow-up.")
@@ -72,7 +76,7 @@ class ReminderToolService(
             return CreateReminderResponse.Question(CreateReminderResponse.MissingInfo.MISSING_DATE_TIME)
         }
 
-        val localDateTime = dateTimeProvider.getNow()
+        val localDateTime = dateTimeProvider.getNow(timezoneId)
             .plusMinutes(minutes ?: 0)
             .plusHours(hours ?: 0)
             .plusDays(days ?: 0)
@@ -81,11 +85,15 @@ class ReminderToolService(
     }
 
     private fun createReminder(title: String, message: String?, localDateTime: LocalDateTime): CreateReminderResponse {
-        mindService.createReminder(
-            title = title,
-            message = message,
-            localDateTime = localDateTime
-        )
+        try {
+            mindService.createReminder(
+                title = title,
+                message = message,
+                localDateTime = localDateTime
+            )
+        } catch (e: Exception) {
+            return CreateReminderResponse.Error(e.message ?: e.toString())
+        }
 
         return CreateReminderResponse.Success(
             reminder = title,
