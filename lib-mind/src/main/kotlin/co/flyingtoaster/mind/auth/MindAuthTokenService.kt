@@ -1,10 +1,12 @@
 package co.flyingtoaster.mind.auth
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.springframework.context.annotation.Profile
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Service
 
 @Service
+@Profile("!noredis")
 internal class MindAuthTokenService(
     private val stringRedisTemplate: StringRedisTemplate,
     private val objectMapper: ObjectMapper
