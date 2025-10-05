@@ -13,19 +13,11 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 
 internal class MindApiServiceFactory {
 
-    private fun createObjectMapper(): ObjectMapper {
-        // TODO: Check that this is still needed
-        return ObjectMapper().apply {
-            registerModule(com.fasterxml.jackson.module.kotlin.KotlinModule.Builder().build())
-            propertyNamingStrategy = PropertyNamingStrategies.SNAKE_CASE
-            configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        }
-    }
-
     fun createMindApiAuthService(baseUrl: String): MindApiAuthService {
+        val normalizedUrl = normalizeBaseUrl(baseUrl)
         val objectMapper = createObjectMapper()
         val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(normalizedUrl)
             .addConverterFactory(JacksonConverterFactory.create(objectMapper))
             .build()
 
@@ -33,6 +25,7 @@ internal class MindApiServiceFactory {
     }
 
     fun createMindApiService(baseUrl: String, authenticator: RetrofitAuthenticator<MindAuthTokenModel>): MindApiService {
+        val normalizedUrl = normalizeBaseUrl(baseUrl)
         val objectMapper = createObjectMapper()
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(authenticator)
@@ -40,11 +33,25 @@ internal class MindApiServiceFactory {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(normalizedUrl)
             .client(okHttpClient)
             .addConverterFactory(JacksonConverterFactory.create(objectMapper))
             .build()
 
         return retrofit.create(MindApiService::class.java)
+    }
+
+    private fun normalizeBaseUrl(baseUrl: String): String {
+        val trimmedUrl = baseUrl.trimEnd('/')
+        return "$trimmedUrl/api/"
+    }
+
+    private fun createObjectMapper(): ObjectMapper {
+        // TODO: Check that this is still needed
+        return ObjectMapper().apply {
+            registerModule(com.fasterxml.jackson.module.kotlin.KotlinModule.Builder().build())
+            propertyNamingStrategy = PropertyNamingStrategies.SNAKE_CASE
+            configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        }
     }
 }
