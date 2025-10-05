@@ -11,12 +11,12 @@ services:
       - "8000:8000"
     volumes:
       - ../server/build/libs/server-0.0.1-SNAPSHOT.jar:/mind-mcp.jar
-    environment:
-      - MIND_USERNAME=flyingtoaster0
-      - MIND_PASSWORD=wtO6qTRTeugPBV7PV8vEiAhgrR7f2IHA
-      - MIND_BASE_URL=http://10.88.111.213:8086/api/
-      - MIND_TIMEZONE=America/Toronto
-      - REDIS_HOST=redis
+        #    environment:
+        #- MIND_USERNAME=flyingtoaster0
+        #- MIND_PASSWORD=wtO6qTRTeugPBV7PV8vEiAhgrR7f2IHA
+        #- MIND_BASE_URL=http://10.88.111.213:8086/api/
+        #- MIND_TIMEZONE=America/Toronto
+        #- REDIS_HOST=redis
     stdin_open: true   # same as -it
     tty: true          # same as -it
     restart: "no"      # same as --rm (container won't restart)
