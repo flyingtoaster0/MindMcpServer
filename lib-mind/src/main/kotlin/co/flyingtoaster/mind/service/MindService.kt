@@ -1,7 +1,6 @@
 package co.flyingtoaster.mind.service
 
 import java.time.LocalDateTime
-import java.time.ZonedDateTime
 
 interface MindService {
 

@@ -1,20 +1,8 @@
 package co.flyingtoaster.mind.service
 
-import co.flyingtoaster.mind.service.model.CreateNotificationServiceRequest
-import co.flyingtoaster.mind.service.model.CreateReminderRequest
-import co.flyingtoaster.mind.service.model.NotificationServiceResponse
-import co.flyingtoaster.mind.service.model.ReminderResponse
-import co.flyingtoaster.mind.service.model.TestNotificationServiceRequest
-import co.flyingtoaster.mind.service.model.UpdateNotificationServiceRequest
-import co.flyingtoaster.mind.service.model.UpdateReminderRequest
+import co.flyingtoaster.mind.service.model.*
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface MindApiService {
 
