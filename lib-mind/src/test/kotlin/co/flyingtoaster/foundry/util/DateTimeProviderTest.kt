@@ -1,4 +1,4 @@
-package com.something.foundry.util
+package co.flyingtoaster.foundry.util
 
 import co.flyingtoaster.foundry.util.DateTimeProvider
 import org.assertj.core.api.Assertions.assertThat

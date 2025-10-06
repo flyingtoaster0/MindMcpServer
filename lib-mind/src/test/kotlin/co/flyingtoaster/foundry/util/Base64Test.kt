@@ -1,4 +1,4 @@
-package com.something.foundry.util
+package co.flyingtoaster.foundry.util
 
 import co.flyingtoaster.foundry.util.Base64
 import org.assertj.core.api.Assertions.assertThat
