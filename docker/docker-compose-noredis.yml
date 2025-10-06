@@ -1,9 +1,8 @@
 version: "3.9"
 
 services:
-  supergateway:
+  mind-mcp:
     build: .
-    #image: supercorp/supergateway
     command: >
       --stdio "REDIS_HOST=redis MIND_USERNAME=${MIND_USERNAME} MIND_PASSWORD=${MIND_PASSWORD} MIND_BASE_URL=${MIND_BASE_URL} MIND_TIMEZONE=${MIND_TIMEZONE} java -Dspring.profiles.active=noredis -jar /mind-mcp.jar"
       --port 8000
@@ -11,9 +10,9 @@ services:
       - "8000:8000"
     volumes:
       - ../server/build/libs/server-0.0.1-SNAPSHOT.jar:/mind-mcp.jar
-    stdin_open: true   # same as -it
-    tty: true          # same as -it
-    restart: "no"      # same as --rm (container won't restart)
+    stdin_open: true
+    tty: true
+    restart: "no"
 
 volumes: 
   redis_data:
