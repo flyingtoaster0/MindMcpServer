@@ -19,7 +19,7 @@ internal class MindServiceImplTest {
 
     private val TIMEZONE_ID = "America/Toronto"
     private val TITLE = "Meeting Reminder"
-    private val MESSAGE = "Don't forget the team meeting"
+    private val MESSAGE = "There's a meeting!"
     private val NOW = LocalDateTime.of(2024, 12, 15, 14, 30, 0)
 
     private lateinit var mockWebServer: MockWebServer
@@ -82,8 +82,7 @@ internal class MindServiceImplTest {
 
         assertThatThrownBy {
             subject.createReminder(TITLE, MESSAGE, NOW)
-        }
-            .isInstanceOf(MindException::class.java)
+        }.isInstanceOf(MindException::class.java)
             .hasMessageContaining("Failed to create reminder: HTTP 500")
     }
 
@@ -93,8 +92,7 @@ internal class MindServiceImplTest {
 
         assertThatThrownBy {
             subject.createReminder(TITLE, MESSAGE, NOW)
-        }
-            .isInstanceOf(MindException::class.java)
+        }.isInstanceOf(MindException::class.java)
             .hasMessageContaining("Failed to create reminder: HTTP 404")
     }
 
