@@ -1,6 +1,6 @@
 package co.flyingtoaster.mind.auth
 
-class InMemoryAuthStore<T : AuthTokenModel> : AuthStore<T> {
+abstract class InMemoryAuthStore<T : AuthTokenModel> : AuthStore<T> {
 
     private var authResponse: T? = null
 
