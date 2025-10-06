@@ -20,8 +20,7 @@ class MindConfiguration {
 
     @Bean
     fun mindApiAuthService(
-        @Value("\${mind.base_url}") baseUrl: String,
-        mindRetrofit: Retrofit
+        @Value("\${mind.base_url}") baseUrl: String
     ): MindApiAuthService {
         val normalizedUrl = normalizeBaseUrl(baseUrl)
         val objectMapper = createObjectMapper()
@@ -53,6 +52,7 @@ class MindConfiguration {
 
         val retrofit = Retrofit.Builder()
             .baseUrl(normalizedUrl)
+            .client(okHttpClient)
             .addConverterFactory(JacksonConverterFactory.create(objectMapper))
             .build()
 
