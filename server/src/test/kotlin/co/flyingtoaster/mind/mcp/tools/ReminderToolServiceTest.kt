@@ -3,12 +3,13 @@ package co.flyingtoaster.mind.mcp.tools
 import co.flyingtoaster.foundry.util.DateTimeProvider
 import co.flyingtoaster.mind.auth.AuthStore
 import co.flyingtoaster.mind.auth.FakeMindAuthenticator
-import co.flyingtoaster.mind.auth.InMemoryAuthStore
+import co.flyingtoaster.mind.auth.InMemoryAuthTokenService
 import co.flyingtoaster.mind.auth.MindAuthTokenModel
 import co.flyingtoaster.mind.mcp.tools.CreateReminderResponse.MissingInfo
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -34,6 +35,7 @@ import java.time.LocalDateTime
         "mind.password=pass",
         "mind.base_url=http://localhost:8080",
         "mind.timezone=America/Toronto",
+        "mind.notification_service_id=1",
         "spring.main.allow-bean-definition-overriding=true"
     ]
 )
@@ -215,7 +217,7 @@ internal class ReminderToolServiceTest {
 
         @Bean
         fun authStore(): AuthStore<MindAuthTokenModel> {
-            return InMemoryAuthStore()
+            return InMemoryAuthTokenService(ObjectMapper())
         }
 
         @Bean
@@ -231,7 +233,7 @@ internal class ReminderToolServiceTest {
         @Primary
         fun mindRetrofit(fakeMindAuthenticator: FakeMindAuthenticator, mockWebServer: MockWebServer): Retrofit {
             val objectMapper = ObjectMapper().apply {
-                registerModule(com.fasterxml.jackson.module.kotlin.KotlinModule.Builder().build())
+                registerModule(KotlinModule.Builder().build())
                 propertyNamingStrategy = PropertyNamingStrategies.SNAKE_CASE
                 configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             }

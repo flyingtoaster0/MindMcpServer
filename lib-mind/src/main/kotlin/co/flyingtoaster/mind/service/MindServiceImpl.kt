@@ -11,7 +11,8 @@ import java.time.ZoneId
 @Service
 class MindServiceImpl(
     private val mindApiService: MindApiService,
-    @Value("\${mind.timezone}") private val timezoneId: String
+    @Value("\${mind.timezone}") private val timezoneId: String,
+    @Value("\${mind.notification_service_id}") private val notificationServiceId: Int
 ) : MindService {
 
     override fun createReminder(title: String, message: String?, localDateTime: LocalDateTime) {
@@ -22,7 +23,7 @@ class MindServiceImpl(
         val request = CreateReminderRequest(
             title = title,
             time = epochSeconds,
-            notificationServices = listOf(1),
+            notificationServices = listOf(notificationServiceId),
             text = message
         )
 

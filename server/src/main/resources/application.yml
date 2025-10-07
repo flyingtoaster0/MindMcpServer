@@ -27,6 +27,7 @@ mind:
   password: ${MIND_PASSWORD}
   base_url: ${MIND_BASE_URL}
   timezone: ${MIND_TIMEZONE}
+  notification_service_id: ${NOTIFICATION_SERVICE_ID}
 
 
 

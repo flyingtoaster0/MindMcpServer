@@ -18,6 +18,7 @@ import java.time.LocalDateTime
 internal class MindServiceImplTest {
 
     private val TIMEZONE_ID = "America/Toronto"
+    private val NOTIFICATION_SERVICE_ID = 1
     private val TITLE = "Meeting Reminder"
     private val MESSAGE = "There's a meeting!"
     private val NOW = LocalDateTime.of(2024, 12, 15, 14, 30, 0)
@@ -43,7 +44,7 @@ internal class MindServiceImplTest {
             .build()
 
         mindApiService = retrofit.create(MindApiService::class.java)
-        subject = MindServiceImpl(mindApiService, TIMEZONE_ID)
+        subject = MindServiceImpl(mindApiService, TIMEZONE_ID, NOTIFICATION_SERVICE_ID)
     }
 
     @AfterEach
@@ -63,6 +64,7 @@ internal class MindServiceImplTest {
         assertThat(request.path).isEqualTo("/reminders")
         assertThat(requestBody).contains("\"title\":\"$TITLE\"")
         assertThat(requestBody).contains("\"text\":\"$MESSAGE\"")
+        assertThat(requestBody).contains("\"notification_services\":[$NOTIFICATION_SERVICE_ID]")
     }
 
     @Test

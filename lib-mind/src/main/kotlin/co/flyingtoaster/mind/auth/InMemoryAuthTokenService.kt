@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 @Service
 @Profile("noredis")
-internal class InMemoryAuthTokenService(
+class InMemoryAuthTokenService(
     private val objectMapper: ObjectMapper
 ) : InMemoryAuthStore<MindAuthTokenModel>() {
 
