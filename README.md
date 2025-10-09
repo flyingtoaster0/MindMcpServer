@@ -21,6 +21,7 @@ The project includes several Docker Compose configurations in the `docker/` dire
 - `docker-compose.yml` - Standard configuration with Redis
 - `docker-compose-with-server.yml` - Includes the MIND server itself
 - `docker-compose-noredis.yml` - Runs without Redis caching
+- `docker-compose-stdio.yml` - STDIO-compatible configuration with Redis
 
 ### Setup
 
@@ -80,4 +81,3 @@ The script will output the JSON response containing all configured notification 
 - Support for notifying multiple notification services simultaneously
 - Add notification service management tools
 - Allow specifying notification service when creating reminders
-- STDIO-compatible Docker image
