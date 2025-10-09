@@ -1,0 +1,7 @@
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /app
+
+COPY server/build/libs/*.jar /mind-mcp.jar
+
+CMD ["java", "-jar", "/mind-mcp.jar"]
