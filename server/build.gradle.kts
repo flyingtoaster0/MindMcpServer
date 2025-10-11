@@ -27,24 +27,19 @@ dependencies {
     implementation("io.modelcontextprotocol.sdk:mcp:0.10.0")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
-//	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("io.swagger.core.v3:swagger-annotations:2.2.15")
-//	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
 
     implementation(project(":lib-mind"))
 
 	implementation("org.springframework.boot:spring-boot-starter-data-redis:3.5.5")
 
-//    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 
-
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-//	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testImplementation("io.mockk:mockk:1.13.13")
 	testImplementation("org.assertj:assertj-core:3.27.3")
