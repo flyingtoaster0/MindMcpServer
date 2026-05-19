@@ -12,16 +12,29 @@ MIND is a simple self-hosted reminder application that can send push notificatio
 - Configurable timezone support
 - Redis-based caching for improved performance
 - Multiple deployment options (Docker Compose, direct execution)
-- SSE compatibility through SuperGateway wrapper for integrations like Home Assistant MCP
+- Native MCP **Streamable HTTP** transport (default), with **SSE-via-SuperGateway** and **STDIO** variants also available
+
+## Transports and Docker Images
+
+Three image tags are published from this repository:
+
+| Tag | Transport | Port | Endpoint | Dockerfile |
+|---|---|---|---|---|
+| `flyingtoaster0/mind-mcp:latest` | Streamable HTTP | `8080` | `/mcp` | `docker/Dockerfile` |
+| `flyingtoaster0/mind-mcp:sse-latest` | SSE (SuperGateway wrapper around STDIO) | `8000` | `/sse` | `docker/Dockerfile.Sse` |
+| `flyingtoaster0/mind-mcp:stdio-latest` | STDIO | — | — | `docker/Dockerfile.Stdio` |
+
+> The `/mcp` endpoint is currently unauthenticated. Deploy behind a reverse proxy, VPN, or trusted network.
 
 ## Running with Docker Compose
 
-The project includes several Docker Compose configurations in the `docker/` directory:
+The project includes four Docker Compose configurations in the `docker/` directory:
 
-- `docker-compose.yml` - Standard configuration with Redis
-- `docker-compose-with-server.yml` - Includes the MIND server itself
-- `docker-compose-noredis.yml` - Runs without Redis caching
-- `docker-compose-stdio.yml` - STDIO-compatible configuration with Redis
+- `docker-compose-streamable.yml` - **Default.** Streamable HTTP on port 8080 with Redis
+- `docker-compose.yml` - SSE via SuperGateway on port 8000 with Redis
+- `docker-compose-with-server.yml` - SSE variant that also runs the MIND server itself
+- `docker-compose-noredis.yml` - SSE variant without Redis caching
+- `docker-compose-stdio.yml` - STDIO transport with Redis
 
 ### Setup
 
@@ -42,10 +55,10 @@ The project includes several Docker Compose configurations in the `docker/` dire
 3. Run with Docker Compose:
    ```bash
    cd docker
-   docker-compose up
+   docker compose -f docker-compose-streamable.yml up
    ```
 
-The MCP server will be available on port 8000 and wrapped with SuperGateway for SSE compatibility.
+The MCP server will be available on `http://localhost:8080/mcp`.
 
 ## Running Directly with Gradle
 

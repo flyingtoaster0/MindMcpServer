@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY server/build/libs/*.jar /mind-mcp.jar
 
-CMD ["java", "-jar", "/mind-mcp.jar"]
+CMD ["java", "-jar", "/mind-mcp.jar", "--spring.profiles.active=stdio"]

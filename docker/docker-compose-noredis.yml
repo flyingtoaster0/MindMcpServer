@@ -2,9 +2,9 @@ version: "3.9"
 
 services:
   mind-mcp:
-    image: flyingtoaster0/mind-mcp:latest
+    image: flyingtoaster0/mind-mcp:sse-latest
     command: >
-      --stdio "REDIS_HOST=redis MIND_USERNAME=${MIND_USERNAME} MIND_PASSWORD=${MIND_PASSWORD} MIND_BASE_URL=${MIND_BASE_URL} MIND_TIMEZONE=${MIND_TIMEZONE} NOTIFICATION_SERVICE_ID=${NOTIFICATION_SERVICE_ID} java -Dspring.profiles.active=noredis -jar /mind-mcp.jar"
+      --stdio "REDIS_HOST=redis MIND_USERNAME=${MIND_USERNAME} MIND_PASSWORD=${MIND_PASSWORD} MIND_BASE_URL=${MIND_BASE_URL} MIND_TIMEZONE=${MIND_TIMEZONE} NOTIFICATION_SERVICE_ID=${NOTIFICATION_SERVICE_ID} java -jar /mind-mcp.jar --spring.profiles.active=stdio,noredis"
       --port 8000
     ports:
       - "8000:8000"

@@ -22,9 +22,8 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.ai:spring-ai-starter-mcp-server:1.0.1")
-    implementation("org.springframework.ai:spring-ai-model:1.0.1")
-    implementation("io.modelcontextprotocol.sdk:mcp:0.10.0")
+    implementation("org.springframework.ai:spring-ai-starter-mcp-server-webmvc:1.1.6")
+    implementation("org.springframework.ai:spring-ai-model:1.1.6")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")

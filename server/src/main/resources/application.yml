@@ -11,16 +11,23 @@ spring:
       server:
         name: MindMcpServer
         version: 0.0.1
-        stdio: true
+        protocol: STREAMABLE
+        streamable-http:
+          mcp-endpoint: /mcp
   main:
-    web-application-type: none
     banner-mode: off
-    bannerMode: off
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
       password: ${REDIS_PASSWORD:}
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration
+
+server:
+  port: 8080
 
 mind:
   username: ${MIND_USERNAME}
@@ -29,5 +36,14 @@ mind:
   timezone: ${MIND_TIMEZONE}
   notification_service_id: ${NOTIFICATION_SERVICE_ID}
 
-
-
+---
+spring:
+  config:
+    activate:
+      on-profile: stdio
+  ai:
+    mcp:
+      server:
+        stdio: true
+  main:
+    web-application-type: none
