@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  mind-mcp:
+    image: flyingtoaster0/mind-mcp:sse-latest
+    command: >
+      --stdio "REDIS_HOST=redis MIND_USERNAME=${MIND_USERNAME} MIND_PASSWORD=${MIND_PASSWORD} MIND_BASE_URL=${MIND_BASE_URL} MIND_TIMEZONE=${MIND_TIMEZONE} NOTIFICATION_SERVICE_ID=${NOTIFICATION_SERVICE_ID} java -jar /mind-mcp.jar --spring.profiles.active=stdio"
+      --port 8000
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+    restart: "no"
+
+  redis:
+    image: redis:7
+    container_name: mind-mcp-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: always
+
+volumes: 
+  redis_data:

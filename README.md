@@ -28,10 +28,10 @@ Three image tags are published from this repository:
 
 ## Running with Docker Compose
 
-The project includes four Docker Compose configurations in the `docker/` directory:
+The project includes several Docker Compose configurations in the `docker/` directory:
 
-- `docker-compose-streamable.yml` - **Default.** Streamable HTTP on port 8080 with Redis
-- `docker-compose.yml` - SSE via SuperGateway on port 8000 with Redis
+- `docker-compose.yml` - **Default.** Streamable HTTP on port 8080 with Redis
+- `docker-compose-sse.yml` - SSE via SuperGateway on port 8000 with Redis
 - `docker-compose-with-server.yml` - SSE variant that also runs the MIND server itself
 - `docker-compose-noredis.yml` - SSE variant without Redis caching
 - `docker-compose-stdio.yml` - STDIO transport with Redis
@@ -55,7 +55,7 @@ The project includes four Docker Compose configurations in the `docker/` directo
 3. Run with Docker Compose:
    ```bash
    cd docker
-   docker compose -f docker-compose-streamable.yml up
+   docker compose up
    ```
 
 The MCP server will be available on `http://localhost:8080/mcp`.
